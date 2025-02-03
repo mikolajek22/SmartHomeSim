@@ -1,7 +1,7 @@
 # Smart home simulator
 ## Application
 This is an OOP written application using C++ only. There is firs class "Smart Device" in which are basic settings like name, id and network settings. each class from each family of smart devices inherits from SmartDevice. At this moment there are 4 possible to add smart devices: Bulb, Socekt, Thermometer and Thermostat.
-All of the devices are controlled from smartManager class. 
+All of the devices are controlled from smartManager class. s
 ## Manual:
 To build project go to main directory and use:
 ```

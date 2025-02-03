@@ -30,6 +30,10 @@ int smartDevice::getId() const {
     return this->id;
 }
 
+Network smartDevice::getNetSettings() {
+    return this->netSettings;
+}
+
 string smartDevice::getName() {
     return this->name;
 }

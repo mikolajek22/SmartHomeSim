@@ -2,10 +2,51 @@
 #include <vector>
 #include "smartManager.h"
 #include "logger.h"
+#include <algorithm>
 
-#define OCTET_NUM 4
+#define OCTET_NUM       4
 
+#define END_APP         0
+#define BULB_ADD        1
+#define BULB_RMV        2
+#define SOCKET_ADD      3
+#define SOCKET_RMV      4
+#define THERMOMETER_ADD 5
+#define THERMOMETER_RMV 6
+#define THERMOSTAT_ADD  7
+#define THERMOSTAT_RMV  8
+#define PRINT_DEVS      9
 using namespace std;
+
+vector<int> devicesId;
+
+/*
+* @brief Calculate the device ID from the existing devices
+*
+*/
+int calculateDevId() {
+    int id = 0;
+    bool found = false;
+    if (devicesId.size() == 0) {
+        return id;
+    }
+    else {
+        do{
+            for (int i = 0; i < devicesId.size(); i++) {
+                if (devicesId[i] == id) {
+                    id++;
+                    break;
+                }
+                else if(i == devicesId.size() - 1) {
+                    found = true;
+                }
+            }
+        } while (!found);
+    }
+    
+    return id;
+}
+
 
 bool strIpToUint8(string strIp, uint8_t *uint8Ip) {
     for (int i = 0; i < OCTET_NUM; i++) {
@@ -56,7 +97,8 @@ bool setNetSettings(uint8_t* ip, uint8_t* netmask, uint8_t* defGw, uint8_t* brok
 
 int main() {
     string name;
-    int bubelId;
+    int uID;
+    Network netSettings;
     cout << "Morgern!" << endl;
     smartManager manager;
     while (true) {
@@ -76,31 +118,123 @@ int main() {
         cin >> choice;
 
         switch (choice) {
-            case 1:
-                Network netSettings;
-                setNetSettings(netSettings.ipAddr, netSettings.netMask, netSettings.defGw, netSettings.broker);
-                name = "b2";
-                bubelId = 2;
-                manager.addSmartBulb(netSettings, name, bubelId);
-                cout << static_cast<int>(netSettings.ipAddr[0]) << "." <<
-                    static_cast<int>(netSettings.ipAddr[1]) << "." <<
-                    static_cast<int>(netSettings.ipAddr[2]) << "." <<
-                    static_cast<int>(netSettings.ipAddr[3]) << endl;
+            case END_APP:
+                return 0;
+                break; 
+
+            case BULB_ADD:
+                if (setNetSettings(netSettings.ipAddr, netSettings.netMask, netSettings.defGw, netSettings.broker)) {
+                    name = "bulb";
+                    uID = calculateDevId();
+                    if (uID == manager.addSmartBulb(netSettings, name, uID)) {
+                        devicesId.push_back(uID);
+                        LOG_INFO("Smart Bulb added successfully");
+                    }
+                    else {
+                        LOG_ERROR("Failed to add Smart Bulb");
+                    }
+                }
+                else {
+                    LOG_ERROR("At least one of addresses is invalid");
+                }
                 break;    
-            case 2:
+            case BULB_RMV:
+                cout << "Enter Bulb ID: " << endl;
+                cin >> uID;
+
+                if (uID == manager.deleteSmartBulb(uID)) {
+                    devicesId.erase(find(devicesId.begin(), devicesId.end(), uID));
+                }
+                else {
+                    LOG_ERROR("Invalid bubble ID");
+                }
                 break;
-            case 3:
+
+            case SOCKET_ADD:
+                if (setNetSettings(netSettings.ipAddr, netSettings.netMask, netSettings.defGw, netSettings.broker)) {
+                    name = "socket";
+                    uID = calculateDevId();
+                    if (uID == manager.addSmartSocket(netSettings, name, uID)) {
+                        devicesId.push_back(uID);
+                        LOG_INFO("Smart Socket added successfully");
+                    }
+                    else {
+                        LOG_ERROR("Failed to add Smart Socket");
+                    }
+                }
+                else {
+                    LOG_ERROR("At least one of addresses is invalid");
+                }
                 break;
-            case 4:
+            case SOCKET_RMV:
+                cout << "Enter Socket ID: " << endl;
+                cin >> uID;
+
+                if (uID == manager.deleteSmartSocket(uID)) {
+                    devicesId.erase(find(devicesId.begin(), devicesId.end(), uID));
+                }
+                else {
+                    LOG_ERROR("Invalid socket ID");
+                }
                 break;
-            case 5:
+
+            case THERMOMETER_ADD:
+                if (setNetSettings(netSettings.ipAddr, netSettings.netMask, netSettings.defGw, netSettings.broker)) {
+                    name = "thermometer";
+                    uID = calculateDevId();
+                    if (uID == manager.addSmartThermometer(netSettings, name, uID)) {
+                        devicesId.push_back(uID);
+                        LOG_INFO("Smart Thermometer added successfully");
+                    }
+                    else {
+                        LOG_ERROR("Failed to add Smart Thermometer");
+                    }
+                }
+                else {
+                    LOG_ERROR("At least one of addresses is invalid");
+                }
                 break;
-            case 6:
+            case THERMOMETER_RMV:
+                cout << "Enter Thermometer ID: " << endl;
+                cin >> uID;
+
+                if (uID == manager.deleteSmartThermometer(uID)) {
+                    devicesId.erase(find(devicesId.begin(), devicesId.end(), uID));
+                }
+                else {
+                    LOG_ERROR("Invalid thermometer ID");
+                }
                 break;
-            case 7:
+
+
+            case THERMOSTAT_ADD:
+                if (setNetSettings(netSettings.ipAddr, netSettings.netMask, netSettings.defGw, netSettings.broker)) {
+                    name = "thermostat";
+                    uID = calculateDevId();
+                    if (uID == manager.addSmartThermostat(netSettings, name, uID)) {
+                        devicesId.push_back(uID);
+                        LOG_INFO("Smart Thermostat added successfully");
+                    }
+                    else {
+                        LOG_ERROR("Failed to add Smart Thermostat");
+                    }
+                }
+                else {
+                    LOG_ERROR("At least one of addresses is invalid");
+                }
                 break;
-            case 8:
+            case THERMOSTAT_RMV:
+                cout << "Enter Thermostat ID: " << endl;
+                cin >> uID;
+
+                if (uID == manager.deleteSmartThermostat(uID)) {
+                    devicesId.erase(find(devicesId.begin(), devicesId.end(), uID));
+                }
+                else {
+                    LOG_ERROR("Invalid thermostat ID");
+                }
                 break;
+                
             case 9:
                 manager.printSmartDevices();
                 break;

@@ -23,6 +23,7 @@ class smartDevice {
     public:
         smartDevice(Network netSettings, string name, int id);
         bool changeNetSetting(Network netSetting);
+        Network getNetSettings();
         bool changeName(string name);
         int getId() const;
         string getName();

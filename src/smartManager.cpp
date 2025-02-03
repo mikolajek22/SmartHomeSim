@@ -124,20 +124,71 @@ bool smartManager::checkDevId(int id) {
 }
 
 void smartManager::printSmartDevices() {
-    LOG_INFO("Smart Bulbs: ");
+    LOG_INFO("Smart Devices: ");
+    Network netSet;
+    string ipAddr;
+    string netMask;
+    string defGw;
+    string ipBroker;
+    PRINT_MSG(CYAN_COLOR, "Smart Bulbs: ");
     for (int i = 0; i < smartBulbsNum; i++) {
-        LOG_INFO("Name: " + smartBulbs[i]->getName() + " ID: " + to_string(smartBulbs[i]->getId()));
+        PRINT_MSG(MAGENTA_COLOR, "  Name: " + smartBulbs[i]->getName() + " ID: " + to_string(smartBulbs[i]->getId()));
+
+        netSet = smartBulbs[i]->getNetSettings();
+        ipAddr = to_string(netSet.ipAddr[0]) + "." + to_string(netSet.ipAddr[1]) + "." + to_string(netSet.ipAddr[2]) + "." + to_string(netSet.ipAddr[3]);
+        netMask = to_string(netSet.netMask[0]) + "." + to_string(netSet.netMask[1]) + "." + to_string(netSet.netMask[2]) + "." + to_string(netSet.netMask[3]);
+        defGw = to_string(netSet.defGw[0]) + "." + to_string(netSet.defGw[1]) + "." + to_string(netSet.defGw[2]) + "." + to_string(netSet.defGw[3]);
+        ipBroker = to_string(netSet.broker[0]) + "." + to_string(netSet.broker[1]) + "." + to_string(netSet.broker[2]) + "." + to_string(netSet.broker[3]);
+        
+        PRINT_MSG(MAGENTA_COLOR, "      Ip Address: " + ipAddr);
+        PRINT_MSG(MAGENTA_COLOR, "      Net Mask: " + netMask);
+        PRINT_MSG(MAGENTA_COLOR, "      Default Gateway: " + defGw);
+        PRINT_MSG(MAGENTA_COLOR, "      Broker's Ip Address: " + ipBroker);
     }
-    LOG_INFO("Smart Sockets: ");
+    PRINT_MSG(CYAN_COLOR, "Smart Sockets: ");
     for (int i = 0; i < smartSocketsNum; i++) {
-        LOG_INFO("Name: " + smartSockets[i]->getName() + " ID: " + to_string(smartSockets[i]->getId()));
+        PRINT_MSG(MAGENTA_COLOR, "  Name: " + smartSockets[i]->getName() + " ID: " + to_string(smartSockets[i]->getId()));
+
+        netSet = smartBulbs[i]->getNetSettings();
+        ipAddr = to_string(netSet.ipAddr[0]) + "." + to_string(netSet.ipAddr[1]) + "." + to_string(netSet.ipAddr[2]) + "." + to_string(netSet.ipAddr[3]);
+        netMask = to_string(netSet.netMask[0]) + "." + to_string(netSet.netMask[1]) + "." + to_string(netSet.netMask[2]) + "." + to_string(netSet.netMask[3]);
+        defGw = to_string(netSet.defGw[0]) + "." + to_string(netSet.defGw[1]) + "." + to_string(netSet.defGw[2]) + "." + to_string(netSet.defGw[3]);
+        ipBroker = to_string(netSet.broker[0]) + "." + to_string(netSet.broker[1]) + "." + to_string(netSet.broker[2]) + "." + to_string(netSet.broker[3]);
+        
+        PRINT_MSG(MAGENTA_COLOR, "      Ip Address: " + ipAddr);
+        PRINT_MSG(MAGENTA_COLOR, "      Net Mask: " + netMask);
+        PRINT_MSG(MAGENTA_COLOR, "      Default Gateway: " + defGw);
+        PRINT_MSG(MAGENTA_COLOR, "      Broker's Ip Address: " + ipBroker);
     }
-    LOG_INFO("Smart Thermostats: ");
+    PRINT_MSG(CYAN_COLOR, "Smart Thermostats: ");
     for (int i = 0; i < smartThermostatsNum; i++) {
-        LOG_INFO("Name: " + smartThermostats[i]->getName() + " ID: " + to_string(smartThermostats[i]->getId()));
+        PRINT_MSG(MAGENTA_COLOR, "  Name: " + smartThermostats[i]->getName() + " ID: " + to_string(smartThermostats[i]->getId()));
+
+        netSet = smartBulbs[i]->getNetSettings();
+        ipAddr = to_string(netSet.ipAddr[0]) + "." + to_string(netSet.ipAddr[1]) + "." + to_string(netSet.ipAddr[2]) + "." + to_string(netSet.ipAddr[3]);
+        netMask = to_string(netSet.netMask[0]) + "." + to_string(netSet.netMask[1]) + "." + to_string(netSet.netMask[2]) + "." + to_string(netSet.netMask[3]);
+        defGw = to_string(netSet.defGw[0]) + "." + to_string(netSet.defGw[1]) + "." + to_string(netSet.defGw[2]) + "." + to_string(netSet.defGw[3]);
+        ipBroker = to_string(netSet.broker[0]) + "." + to_string(netSet.broker[1]) + "." + to_string(netSet.broker[2]) + "." + to_string(netSet.broker[3]);
+        
+        PRINT_MSG(MAGENTA_COLOR, "      Ip Address: " + ipAddr);
+        PRINT_MSG(MAGENTA_COLOR, "      Net Mask: " + netMask);
+        PRINT_MSG(MAGENTA_COLOR, "      Default Gateway: " + defGw);
+        PRINT_MSG(MAGENTA_COLOR, "      Broker's Ip Address: " + ipBroker);
     }
-    LOG_INFO("Smart Thermometers: ");
+    PRINT_MSG(CYAN_COLOR, "Smart Thermometers: ");
     for (int i = 0; i < smartThermometersNum; i++) {
-        LOG_INFO("Name: " + smartThermometers[i]->getName() + " ID: " + to_string(smartThermometers[i]->getId()));
+        PRINT_MSG(MAGENTA_COLOR, "  Name: " + smartThermometers[i]->getName() + " ID: " + to_string(smartThermometers[i]->getId()));
+
+        netSet = smartBulbs[i]->getNetSettings();
+        ipAddr = to_string(netSet.ipAddr[0]) + "." + to_string(netSet.ipAddr[1]) + "." + to_string(netSet.ipAddr[2]) + "." + to_string(netSet.ipAddr[3]);
+        netMask = to_string(netSet.netMask[0]) + "." + to_string(netSet.netMask[1]) + "." + to_string(netSet.netMask[2]) + "." + to_string(netSet.netMask[3]);
+        defGw = to_string(netSet.defGw[0]) + "." + to_string(netSet.defGw[1]) + "." + to_string(netSet.defGw[2]) + "." + to_string(netSet.defGw[3]);
+        ipBroker = to_string(netSet.broker[0]) + "." + to_string(netSet.broker[1]) + "." + to_string(netSet.broker[2]) + "." + to_string(netSet.broker[3]);
+        
+        PRINT_MSG(MAGENTA_COLOR, "      Ip Address: " + ipAddr);
+        PRINT_MSG(MAGENTA_COLOR, "      Net Mask: " + netMask);
+        PRINT_MSG(MAGENTA_COLOR, "      Default Gateway: " + defGw);
+        PRINT_MSG(MAGENTA_COLOR, "      Broker's Ip Address: " + ipBroker);
+        
     }
 }

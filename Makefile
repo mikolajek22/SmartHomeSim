@@ -8,7 +8,7 @@ CXXFLAGS = -std=c++17 -Wall -g -Iinclude
 TARGET = build/SmartHomeSimulator
 
 # Pliki źródłowe
-SRC = src/main.cpp src/smartDevice.cpp src/logger.cpp src/smartManager.cpp src/smartBulb.cpp 
+SRC = src/main.cpp src/smartDevice.cpp src/logger.cpp src/smartManager.cpp src/smartBulb.cpp src/appMenu.cpp
 
 # Pliki obiektowe (umieszczone w folderze build)
 OBJ = $(SRC:src/%.cpp=build/%.o)

@@ -87,6 +87,8 @@ int smartManager::deleteSmartThermostat(int id) {
         return -1;
     }
 }
+
+/* SMART THERMOMETER */
 int smartManager::addSmartThermometer(Network netSettings, string name, int id) {
     if (id < 0 || true == checkDevId(id)) {
         smartThermometer *thermometer = new smartThermometer(netSettings, name, id);
@@ -115,6 +117,7 @@ int smartManager::deleteSmartThermometer(int id) {
     }
 }
 
+/* MANAGER */
 bool smartManager::checkDevId(int id) {
     for (int i = 0; this->deviceIds.size(); i++) {
         deviceIds[i] == id;
@@ -122,7 +125,6 @@ bool smartManager::checkDevId(int id) {
     }
     return true;
 }
-
 void smartManager::printSmartDevices() {
     LOG_INFO("Smart Devices: ");
     Network netSet;

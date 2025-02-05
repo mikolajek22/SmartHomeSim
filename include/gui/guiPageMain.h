@@ -5,7 +5,7 @@
 class guiPageMain : public guiBasePage {
     Q_OBJECT
 public:
-    explicit guiPageMain(QWidget *parent = nullptr) : guiBasePage(parent) {
+    explicit guiPageMain(QStackedWidget *stackWidget ,QWidget *parent = nullptr) : guiBasePage(stackWidget, parent) {
 
         QLabel *labelMain = new QLabel("Main Menu", this);
         labelMain->setStyleSheet("QLabel {font-size: 22px 'Arial'; font-weight: bold;}");

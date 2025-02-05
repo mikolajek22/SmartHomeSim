@@ -6,32 +6,33 @@
 #include "guiPageMain.h"
 #include "guiPageConfig.h"
 #include "guiPageControl.h"
+#include <QMainWindow>
 
 int appGui_main(int argc, char* argv[]){
     QApplication guiApp(argc, argv);
 
     // Main window:
-    QWidget window;
-    window.setWindowTitle("Smart Home Manager");
-    window.resize(900,600);    
-    QStackedWidget *stackedWidget = new QStackedWidget(&window);
+    // QWidget window;
+    QMainWindow mainWindow;
+    // window.setWindowTitle("Smart Home Manager");
+    // window.resize(900,600);    
+    QStackedWidget *stackedWidget = new QStackedWidget;
 
-    guiPageMain *pageMain = new guiPageMain();
-    guiPageConfig *pageConfig = new guiPageConfig();
-    guiPageControl *pageControl = new guiPageControl();
+    guiPageMain *pageMain = new guiPageMain(stackedWidget);
+    guiPageConfig *pageConfig = new guiPageConfig(stackedWidget);
+    guiPageControl *pageControl = new guiPageControl(stackedWidget);
 
     stackedWidget->addWidget(pageMain);
     stackedWidget->addWidget(pageConfig);
     stackedWidget->addWidget(pageControl);
 
-
-    QVBoxLayout *layout = new QVBoxLayout(&window);
-    layout->addWidget(stackedWidget);
-    window.setLayout(layout);
-
+    mainWindow.setCentralWidget(stackedWidget);
+    // QVBoxLayout *layout = new QVBoxLayout(&window);
+    // layout->addWidget(stackedWidget);
+    // window.setLayout(layout);
     
     
-    window.show();
+    mainWindow.show();
     
     return guiApp.exec();
 }    

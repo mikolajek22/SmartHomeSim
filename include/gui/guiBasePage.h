@@ -7,11 +7,12 @@
 #include <QScrollArea>
 #include <QStackedWidget>
 #include <iostream>
+#include <QPushButton>
 using namespace std;
 class guiBasePage : public QWidget {
     Q_OBJECT
     public:
-        explicit guiBasePage(QWidget *parent = nullptr) : QWidget(parent) {
+        explicit guiBasePage(QStackedWidget *stackWidget,QWidget *parent = nullptr) : QWidget(parent) {
             // Main Layout -> navigation bar (left) + Content (right)
             QHBoxLayout *mainLayout = new QHBoxLayout(this);
             mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -22,12 +23,13 @@ class guiBasePage : public QWidget {
             QVBoxLayout *navLayout = new QVBoxLayout(navWidget);
             navLayout->setContentsMargins(10,10,10,10);
 
-            // Navigation bar -> including:
-            QListWidget *navList = new QListWidget(navWidget);
-            navList->addItem("Main Menu");
-            navList->addItem("Configure Devices");
-            navList->addItem("Control Devices");
-            navLayout->addWidget(navList);
+            QPushButton *btnMain = new QPushButton("Main Menu", navWidget);
+            QPushButton *btnConfig = new QPushButton("Config Menu", navWidget);
+            QPushButton *btnControl = new QPushButton("Control Menu", navWidget);
+
+            navLayout->addWidget(btnMain);
+            navLayout->addWidget(btnConfig);
+            navLayout->addWidget(btnControl);
 
             navWidget->setStyleSheet("background-color: #807c7c;");
 
@@ -47,6 +49,11 @@ class guiBasePage : public QWidget {
             // add nav bar and content to the main page
             mainLayout->addWidget(navWidget);
             mainLayout->addWidget(contentArea);
+
+            // connect(navList, &QListWidget::currentRowChanged, stackWidget, &QStackedWidget::setCurrentIndex);
+            connect(btnMain, &QPushButton::clicked, [stackWidget](){stackWidget->setCurrentIndex(0);});
+            connect(btnConfig, &QPushButton::clicked, [stackWidget](){stackWidget->setCurrentIndex(1);});
+            connect(btnControl, &QPushButton::clicked, [stackWidget](){stackWidget->setCurrentIndex(2);});
 
         }
         void addContentWidget(QWidget *widget) {
